@@ -14,7 +14,7 @@
     "db:push": "prisma db push",
     "db:seed": "tsx prisma/seeds/index.ts",
     "db:reset": "prisma migrate reset",
-    "postinstall": "npx prisma generate"
+    "postinstall": "npx prisma generate && npx prisma migrate deploy"
   },
   "dependencies": {
     "@clerk/localizations": "^3.13.12",
