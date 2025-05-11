@@ -1,0 +1,36 @@
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+model Exercise {
+  id          String    @id @default(uuid())
+  userId      String
+  name        String
+  description String?   @db.Text
+  imageUrl    String?
+  attempts    Attempt[]
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+
+  @@map("exercise")
+}
+
+model Attempt {
+  id        String   @id @default(uuid())
+  userId    String
+  reps      Int
+  weight    Int
+  date      DateTime
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  exerciseId String
+  exercise   Exercise @relation(fields: [exerciseId], references: [id])
+
+  @@map("attempt")
+}
